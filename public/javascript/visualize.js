@@ -1,8 +1,8 @@
-const WIDTH = 1660;
-const HEIGHT = 810;
-const MARGIN = 30;
-const SIZE_OF_COLLECTION = 10;
-const MAX_NUMBER = 1000;
+const WIDTH = 1410;
+const HEIGHT = 650;
+const MARGIN = 25;
+const SIZE_OF_COLLECTION = 100;
+const MAX_NUMBER = 100;
 const INNER_WIDTH = WIDTH - 2 * MARGIN;
 const INNER_HEIGHT = HEIGHT - 2 * MARGIN;
 const BAR_WIDTH = 10;
@@ -18,6 +18,7 @@ var prepare = function(givenData){
 	for(var i = 0; i<givenData.length; i++){
 		prepared.push({"number": givenData[i], "index": i});
 	}
+	console.log("Hello",prepared);
 	return prepared;
 }
 
@@ -42,7 +43,7 @@ var createChart = function(){
 			.domain([1,MAX_NUMBER])
 			.range([INNER_HEIGHT, 0]);
 
-	var xAxis = d3.axisBottom(_xScale).ticks(10);
+	var xAxis = d3.axisBottom(_xScale).ticks(SIZE_OF_COLLECTION/4);
 	var yAxis = d3.axisLeft(_yScale).ticks(20);
 
 	svg.append('g')
@@ -88,7 +89,7 @@ var updateData = function(data){
 	// updateBarChart(data)
 	updateLineChart(data);
 	data.shift(1);
-} 
+}
 
 var providePreviousData = function(){
 	var collection = [];
@@ -98,7 +99,7 @@ var providePreviousData = function(){
 }
 var show = function(){
 	createChart();
-	var previousData = providePreviousData(); 
+	var previousData = providePreviousData();
 	setInterval(updateData,430,previousData);
 }
 window.onload = show;
